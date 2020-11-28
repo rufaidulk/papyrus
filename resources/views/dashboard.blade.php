@@ -11,12 +11,6 @@
     <body>
         <div id="app">
             <app :app-name="appName"></app>
-            <div class="splash-screen">
-                <div class="splash-container">
-                    <div class="splash-double-bounce1"></div>
-                    <div class="splash-double-bounce2"></div>
-                </div>
-            </div>
         </div>
         <script src="{{ mix('js/app.js') }}"></script>
     </body>
