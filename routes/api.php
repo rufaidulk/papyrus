@@ -24,7 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('admin')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
-    Route::get('/subjects', [SubjectController::class, 'index']);
+    Route::apiResource('subjects', SubjectController::class);
 });
 
 //todo: need to refactor
