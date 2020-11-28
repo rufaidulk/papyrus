@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Api\Admin\AuthController;
-use App\Http\Controllers\Api\Admin\SubjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Controllers\Api\Admin\AuthController;
+use App\Http\Controllers\Api\Admin\TopicController;
+use App\Http\Controllers\Api\Admin\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::prefix('admin')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::apiResource('subjects', SubjectController::class);
+    Route::apiResource('topics', TopicController::class);
 });
 
 //todo: need to refactor

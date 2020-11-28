@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use Exception;
-use App\Models\Subject;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\Topic\TopicResource;
+use App\Http\Resources\Topic\TopicCollection;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Api\ApiBaseController;
-use App\Http\Resources\Subject\SubjectResource;
-use App\Http\Resources\Subject\SubjectCollection;
 
-class SubjectController extends ApiBaseController
+class TopicController extends ApiBaseController
 {
     public function __construct()
     {
@@ -26,9 +26,9 @@ class SubjectController extends ApiBaseController
      */
     public function index()
     {
-        $response['data'] =  (new SubjectCollection(Subject::paginate()))->response()->getData(true);
+        $response['data'] =  (new TopicCollection(Topic::paginate()))->response()->getData(true);
 
-        return $this->success($response, 'Subject List', Response::HTTP_OK);
+        return $this->success($response, 'Topic List', Response::HTTP_OK);
     }
 
     /**
@@ -40,7 +40,8 @@ class SubjectController extends ApiBaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255', 'unique:subjects']
+            'name' => ['required', 'string', 'max:255', 'unique:topics'],
+            'subject_id' => 'required|exists:subjects,id'
         ]);
 
         if ($validator->fails()) {
@@ -49,46 +50,48 @@ class SubjectController extends ApiBaseController
 
         try
         {
-            $subject = new Subject();
-            $subject->name = $request->name;
-            $subject->status = Subject::STATUS_ACTIVE;
+            $topic = new Topic();
+            $topic->name = $request->name;
+            $topic->subject_id = $request->subject_id;
+            $topic->status = Topic::STATUS_ACTIVE;
 
-            $subject->save();
+            $topic->save();
         }
         catch (Exception $ex) {
             logger($ex);
             return $this->error('', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $response['data'] = new SubjectResource($subject);
+        $response['data'] = new TopicResource($topic);
 
-        return $this->success($response, 'New subject created', Response::HTTP_CREATED);
+        return $this->success($response, 'New topic created', Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Topic  $topic
      * @return \Illuminate\Http\Response
      */
-    public function show(Subject $subject)
+    public function show(Topic $topic)
     {
-        $response['data'] = new SubjectResource($subject);
+        $response['data'] = new TopicResource($topic);
 
-        return $this->success($response, 'Subject details', Response::HTTP_OK); 
+        return $this->success($response, 'Topic details', Response::HTTP_OK);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Topic  $topic
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subject $subject)
+    public function update(Request $request, Topic $topic)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255', Rule::unique('subjects')->ignore($subject->id)]
+            'name' => ['required', 'string', 'max:255', Rule::unique('topics')->ignore($topic->id)],
+            'subject_id' => 'required|exists:subjects,id'
         ]);
 
         if ($validator->fails()) {
@@ -97,28 +100,29 @@ class SubjectController extends ApiBaseController
 
         try
         {
-            $subject->name = $request->name;
-            $subject->status = Subject::STATUS_ACTIVE;
+            $topic->name = $request->name;
+            $topic->subject_id = $request->subject_id;
+            $topic->status = Topic::STATUS_ACTIVE;
 
-            $subject->save();
+            $topic->save();
         }
         catch (Exception $ex) {
             logger($ex);
             return $this->error('', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $response['data'] = new SubjectResource($subject);
+        $response['data'] = new TopicResource($topic);
 
-        return $this->success($response, 'Subject updated', Response::HTTP_CREATED);
+        return $this->success($response, 'Topic updated', Response::HTTP_CREATED);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Topic  $topic
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subject $subject)
+    public function destroy(Topic $topic)
     {
         //
     }
