@@ -7,10 +7,11 @@ use App\Http\Controllers\Api\Admin\TagController;
 use App\Http\Controllers\Api\Admin\AuthController;
 use App\Http\Controllers\Api\Admin\TopicController;
 use App\Http\Controllers\Api\Admin\SubjectController;
+use App\Http\Controllers\Api\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
-| Admin API Routes
+| API Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
@@ -30,6 +31,8 @@ Route::prefix('admin')->group(function () {
     Route::apiResource('topics', TopicController::class);
     Route::apiResource('tags', TagController::class);
 });
+
+Route::apiResource('articles', ArticleController::class);
 
 //todo: need to refactor
 Route::get( '/sanctum-dummy-url', function () {
