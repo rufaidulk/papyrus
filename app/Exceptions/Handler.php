@@ -2,8 +2,13 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Exception;
 use Throwable;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -36,5 +41,34 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+        $this->renderable(function (Exception $ex, $request) {
+            return $this->handleException($ex, $request);
+        });
+    }
+
+    private function handleException(Exception $ex, $request)
+    {
+        if ($ex instanceof MethodNotAllowedHttpException) {
+            return $this->errorResponse('The specified method for this request is invalid', Response::HTTP_METHOD_NOT_ALLOWED);
+        }
+
+        if ($ex instanceof NotFoundHttpException) {
+            return $this->errorResponse('Requested resource not found', Response::HTTP_NOT_FOUND);
+        }
+
+        if ($ex instanceof AccessDeniedHttpException) {
+            return $this->errorResponse('Forbidden', Response::HTTP_FORBIDDEN);
+        }
+
+        return $this->errorResponse($ex->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    private function errorResponse($message, $code)
+    {
+        return response()->json([
+            'status' => $code,
+            'message' => $message
+        ], $code);
     }
 }
