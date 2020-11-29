@@ -22,7 +22,7 @@ class SubjectFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word,
+            'name' => $this->faker->unique()->word,
             'status' => $this->faker->randomElement([Subject::STATUS_ACTIVE, Subject::STATUS_INACTIVE])
         ];
     }
