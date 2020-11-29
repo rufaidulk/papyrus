@@ -8,10 +8,11 @@ use App\Models\User;
 use App\Models\Topic;
 use App\Models\Article;
 use App\Models\Comment;
+use App\Models\Profile;
 use App\Models\Subject;
 use App\Models\ArticleTag;
 use App\Models\Commission;
-use App\Models\Profile;
+use Illuminate\Support\Str;
 use App\Models\Subscription;
 use Illuminate\Database\Seeder;
 use App\Models\SubscriptionPlan;
@@ -26,11 +27,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        User::factory()->count(5)->create()->each(function(User $user) {
-            Profile::factory()->create([
-                'user_id' => $user->id
-            ]);
-        });
+        $this->call([UserSeeder::class]);
         Subject::factory()->count(5)->create();
         Topic::factory()->count(20)->create();
         Tag::factory()->count(15)->create();
