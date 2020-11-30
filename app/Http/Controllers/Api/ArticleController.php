@@ -19,6 +19,7 @@ class ArticleController extends ApiBaseController
     public function __construct(ArticleService $service)
     {
         $this->middleware('auth:sanctum');
+        $this->authorizeResource(Article::class, 'article');
         $this->service = $service;
     }
 
@@ -29,7 +30,8 @@ class ArticleController extends ApiBaseController
      */
     public function index()
     {
-        $response['data'] =  (new ArticleCollection(Article::paginate()))->response()->getData(true);
+        $response['data'] =  (new ArticleCollection(Article::where('articles.status', Article::STATUS_ACTIVE)
+            ->paginate()))->response()->getData(true);
 
         return $this->success($response, 'Article List', Response::HTTP_OK);
     }
