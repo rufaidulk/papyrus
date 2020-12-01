@@ -77,7 +77,7 @@ class ArticleController extends ApiBaseController
      */
     public function show(Article $article)
     {
-        $response['data'] = new ArticleResource($tag);
+        $response['data'] = new ArticleResource($article);
 
         return $this->success($response, 'Artilcle details', Response::HTTP_OK);
     }
