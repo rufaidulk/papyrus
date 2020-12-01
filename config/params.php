@@ -21,4 +21,10 @@ return [
             4 => 'Rejected',
         ]
     ],
+    'commission' => [
+        'status' => [
+            1 => 'Active',
+            2 => 'Inactive'
+        ]
+    ]
 ];
