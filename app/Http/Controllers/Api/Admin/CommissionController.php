@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Http\Controllers\Api\ApiBaseController;
 use Exception;
 use App\Models\Commission;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\Commission\CommissionResource;
 use App\Http\Resources\Commission\CommissionCollection;
 
-class CommissionController extends Controller
+class CommissionController extends ApiBaseController
 {
     /**
      * Display a listing of the resource.

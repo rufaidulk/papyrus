@@ -27,6 +27,7 @@ Route::prefix('admin')->group(function () {
     Route::apiResource('tags', \App\Http\Controllers\Api\Admin\TagController::class);
     Route::apiResource('commissions', \App\Http\Controllers\Api\Admin\CommissionController::class);
     Route::apiResource('articles', \App\Http\Controllers\Api\Admin\ArticleController::class);
+    Route::apiResource('subscription-plans', \App\Http\Controllers\Api\Admin\SubscriptionPlanController::class);
 });
 
 Route::apiResource('articles', \App\Http\Controllers\Api\ArticleController::class);

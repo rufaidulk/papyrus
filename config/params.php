@@ -26,5 +26,11 @@ return [
             1 => 'Active',
             2 => 'Inactive'
         ]
+    ],
+    'subscriptionPlan' => [
+        'status' => [
+            1 => 'Active',
+            2 => 'Inactive'
+        ]
     ]
 ];
