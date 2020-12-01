@@ -31,7 +31,10 @@ class AuthController extends ApiBaseController
         if (! Auth::attempt($request->all())) {
             return $this->error('Wrong password', Response::HTTP_UNAUTHORIZED);
         }
-
+        if (! Auth::user()->hasRole(User::ROLE_ADMIN)) {
+            return $this->error('Forbidden', Response::HTTP_FORBIDDEN);
+        }
+        
         Auth::user()->tokens()->delete();
         $response = Auth::user()->loginResponseToApi();
 
