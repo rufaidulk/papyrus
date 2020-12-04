@@ -14,6 +14,11 @@ use App\Http\Resources\SubscriptionPlan\SubscriptionPlanCollection;
 
 class SubscriptionPlanController extends ApiBaseController
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
+    
     /**
      * Display a listing of the resource.
      *
