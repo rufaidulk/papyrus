@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Artilcle;
 
+use App\Http\Resources\Tag\TagCollection;
 use App\Http\Resources\Topic\TopicResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -24,7 +25,7 @@ class ArticleResource extends JsonResource
                 'name' => $this->user->name
             ],
             'topic'      => (new TopicResource($this->topic)),
-            'tags'       => $this->tags,
+            'tags'       => (new TagCollection($this->tags)),
             'status'     => config('params.article.status')[$this->status],
             'created_at' => date('Y-m-d H:i:s', strtotime($this->created_at)),
             'updated_at' => date('Y-m-d H:i:s', strtotime($this->updated_at))
