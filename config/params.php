@@ -32,5 +32,12 @@ return [
             1 => 'Active',
             2 => 'Inactive'
         ]
+    ],
+    'subscription' => [
+        'status' => [
+            1 => 'Active',
+            2 => 'Inactive',
+            3 => 'Expired'
+        ]
     ]
 ];

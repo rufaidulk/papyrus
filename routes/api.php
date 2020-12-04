@@ -19,6 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/**
+ * Admin routes
+ */
 Route::prefix('admin')->group(function () {
     Route::post('login', [\App\Http\Controllers\Api\Admin\AuthController::class, 'login']);
     Route::post('register', [\App\Http\Controllers\Api\Admin\AuthController::class, 'register']);
@@ -28,10 +31,18 @@ Route::prefix('admin')->group(function () {
     Route::apiResource('commissions', \App\Http\Controllers\Api\Admin\CommissionController::class);
     Route::apiResource('articles', \App\Http\Controllers\Api\Admin\ArticleController::class);
     Route::apiResource('subscription-plans', \App\Http\Controllers\Api\Admin\SubscriptionPlanController::class);
+    Route::apiResource('subscriptions', \App\Http\Controllers\Api\Admin\SubscriptionController::class);
 });
 
+/**
+ * User Routes
+ */
 Route::apiResource('articles', \App\Http\Controllers\Api\ArticleController::class);
+Route::apiResource('subscriptions', \App\Http\Controllers\Api\SubscriptionController::class);
 
+/**
+ * Common routes
+ */
 //todo: need to refactor
 Route::get( '/sanctum-dummy-url', function () {
     return response()->json([
