@@ -17,6 +17,7 @@ class CreateSubscriptionInstallmentsTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->index();
             $table->bigInteger('subscription_id')->index();
+            $table->bigInteger('transaction_id')->nullable()->index();
             $table->decimal('amount', 8, 2);
             $table->date('due_date');
             $table->dateTime('paid_date', 0)->nullable();

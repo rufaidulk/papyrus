@@ -17,7 +17,6 @@ class CreateSubscriptionsTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->index();
             $table->bigInteger('subscription_plan_id')->index();
-            $table->bigInteger('transaction_id')->index();
             $table->date('expiry_date');
             $table->tinyInteger('status');
             $table->timestamps();
