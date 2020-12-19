@@ -1,9 +1,9 @@
 require('./bootstrap')
 
 import Vue from 'vue'
-import App from './admin/App.vue'
-import store from './admin/store'
-import router from './admin/router'
+import App from './App.vue'
+import store from './store'
+import router from './router'
 import InputText from 'primevue/inputtext'
 import BootstrapVue from 'bootstrap-vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'primevue/resources/primevue.min.css'
-import '../sass/admin/layout/layout.scss'
+import '../sass/layout/layout.scss'
 
 library.add(fas)
 
