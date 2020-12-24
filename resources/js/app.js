@@ -63,15 +63,11 @@ Vue.prototype.$errorFlash = function (msg) {
         message: msg
     });
 }
-let appName = 'replace';
-
 
 new Vue({
     el: '#app',
     store,
     router,
-    data: {
-        appName: appName
-    },
+    data: {},
     components:{App}
 });

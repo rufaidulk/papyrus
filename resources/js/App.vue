@@ -12,7 +12,7 @@
                         </router-link>
                     </div>
 
-                    <AppProfile :app-name="appName" />
+                    <AppProfile />
                     <AppMenu :model="menu" @menuitem-click="onMenuItemClick" />
                 </div>
             </transition>
@@ -31,6 +31,8 @@
         <!-- set progressbar -->
         <vue-progress-bar></vue-progress-bar>
         <FlashMessage :position="'right bottom'" ></FlashMessage>
+        <!-- confirm dialog box -->
+        <vue-confirm-dialog></vue-confirm-dialog>
     </div>
 </template>
 
@@ -41,12 +43,9 @@ import AppMenu from './AppMenu.vue';
 import AppFooter from './AppFooter.vue';
 
 export default {
-    props: {
-        appName: String,
-    },
-    data() {
+    data () {
         return {
-            // appName: 'Papyrus',
+            appName: '',
             layoutMode: 'static',
             layoutColorMode: 'dark',
             staticMenuInactive: false,
@@ -70,6 +69,9 @@ export default {
         $route() {
             this.menuActive = false;
         }
+    },
+    created () {
+        this.appName = this.$appName;
     },
     methods: {
         onWrapperClick() {
