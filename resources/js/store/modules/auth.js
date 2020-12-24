@@ -1,9 +1,9 @@
 const state = {
-	user: null
+	user: {},
 };
 
 const getters = {
-	isAuthenticated: (state) => !!state.user,
+	isAuthenticated: (state) => Object.keys(state.user).length !== 0,
 	user: state => state.user
 };
 
@@ -12,7 +12,7 @@ const mutations = {
 		state.user = user;	
 	},
 	unsetUser: state => {
-		state.user = null;
+		state.user = {};
 	}
 };
 

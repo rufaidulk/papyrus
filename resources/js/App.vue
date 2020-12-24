@@ -28,6 +28,9 @@
         <div v-else>
             <router-view />
         </div>
+        <!-- set progressbar -->
+        <vue-progress-bar></vue-progress-bar>
+        <FlashMessage :position="'right bottom'" ></FlashMessage>
     </div>
 </template>
 
