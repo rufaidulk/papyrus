@@ -23,7 +23,7 @@
                 <h1></h1>
             </div>
 
-            <AppFooter :app-name="appName" />
+            <AppFooter />
         </div>
         <div v-else>
             <router-view />

@@ -8,8 +8,13 @@
 <script>
 	export default {
 		name: "AppFooter",
-		props: {
-			appName: String
+		data () {
+			return {
+				appName: ''
+			}
+		},
+		created () {
+			this.appName = this.$appName;
 		}
 	}
 </script>
