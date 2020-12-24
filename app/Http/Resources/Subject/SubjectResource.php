@@ -17,7 +17,8 @@ class SubjectResource extends JsonResource
         return [
             'id'         => $this->id,
             'name'       => $this->name,
-            'status'     => config('params.subject.status')[$this->status],
+            'status'     => $this->status,
+            'status_txt'     => config('params.subject.status')[$this->status],
             'created_at' => date('Y-m-d H:i:s', strtotime($this->created_at)),
             'updated_at' => date('Y-m-d H:i:s', strtotime($this->updated_at))
         ];

@@ -26,7 +26,7 @@ class SubjectController extends ApiBaseController
      */
     public function index()
     {
-        $response['data'] =  (new SubjectCollection(Subject::paginate()))->response()->getData(true);
+        $response['data'] =  (new SubjectCollection(Subject::orderBy('id', 'desc')->paginate()))->response()->getData(true);
 
         return $this->success($response, 'Subject List', Response::HTTP_OK);
     }
@@ -40,7 +40,11 @@ class SubjectController extends ApiBaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255', 'unique:subjects']
+            'name' => ['required', 'string', 'max:255', 'unique:subjects'],
+            'status' => [
+                'required',
+                Rule::in(array_keys(config('params.subject.status')))
+            ],
         ]);
 
         if ($validator->fails()) {
@@ -51,7 +55,7 @@ class SubjectController extends ApiBaseController
         {
             $subject = new Subject();
             $subject->name = $request->name;
-            $subject->status = Subject::STATUS_ACTIVE;
+            $subject->status = $request->status;
 
             $subject->save();
         }
@@ -88,7 +92,11 @@ class SubjectController extends ApiBaseController
     public function update(Request $request, Subject $subject)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255', Rule::unique('subjects')->ignore($subject->id)]
+            'name' => ['required', 'string', 'max:255', Rule::unique('subjects')->ignore($subject->id)],
+            'status' => [
+                'required',
+                Rule::in(array_keys(config('params.subject.status')))
+            ],
         ]);
 
         if ($validator->fails()) {
@@ -98,7 +106,7 @@ class SubjectController extends ApiBaseController
         try
         {
             $subject->name = $request->name;
-            $subject->status = Subject::STATUS_ACTIVE;
+            $subject->status = $request->status;
 
             $subject->save();
         }

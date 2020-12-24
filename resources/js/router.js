@@ -5,7 +5,7 @@ import Dashboard from './components/Dashboard.vue';
 import Register from  './components/Register.vue';
 import Articles from './components/Articles.vue';
 import Topics from './components/Topics.vue';
-import Subjects from './components/Subjects.vue';
+import Subjects from './components/admin/Subjects.vue';
 import store from './store';
 
 Vue.use(Router);
