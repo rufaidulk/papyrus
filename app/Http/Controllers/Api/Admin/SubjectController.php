@@ -24,9 +24,16 @@ class SubjectController extends ApiBaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $response['data'] =  (new SubjectCollection(Subject::orderBy('id', 'desc')->paginate()))->response()->getData(true);
+        $term = $request->query('term');
+        $response['data'] =  (new SubjectCollection(Subject::orderBy('id', 'desc')
+            ->when($term, function ($query, $term) {
+                return $query->where('name', 'like', "%$term%");
+            })
+            ->paginate()))
+            ->response()
+            ->getData(true);
 
         return $this->success($response, 'Subject List', Response::HTTP_OK);
     }
@@ -48,7 +55,7 @@ class SubjectController extends ApiBaseController
         ]);
 
         if ($validator->fails()) {
-            return $this->error($validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            return $this->error($validator->errors()->first(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         try
@@ -100,7 +107,7 @@ class SubjectController extends ApiBaseController
         ]);
 
         if ($validator->fails()) {
-            return $this->error($validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            return $this->error($validator->errors()->first(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         try

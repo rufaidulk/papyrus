@@ -82,13 +82,6 @@
 </template>
 
 <script>
-import { extend } from 'vee-validate';
-
-extend('number', (val) => {
-	return ! isNaN(val);
-
-  	return 'This value must be a number';
-});
 
 export default {
   	data () {
@@ -179,6 +172,7 @@ export default {
 			.then( async (res) => {
 				this.items.pop();
 				this.items.unshift(res.data.data);
+				this.resetForm();
 				this.$bvModal.hide('create-form-modal');
 				this.$Progress.finish();
 				this.$successFlash('Subject created successfully!');
