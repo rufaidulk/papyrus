@@ -19,7 +19,8 @@ class TopicResource extends JsonResource
             'id'         => $this->id,
             'name'       => $this->name,
             'subject'    => (new SubjectResource($this->subject)),
-            'status'     => config('params.topic.status')[$this->status],
+            'status'     => $this->status,
+            'status_txt' => config('params.topic.status')[$this->status],
             'created_at' => date('Y-m-d H:i:s', strtotime($this->created_at)),
             'updated_at' => date('Y-m-d H:i:s', strtotime($this->updated_at))
         ];

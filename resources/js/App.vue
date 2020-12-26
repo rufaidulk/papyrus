@@ -55,6 +55,7 @@ export default {
                 {label: 'Dashboard', icon: 'home', to: '/'},
                 {label: 'Articles', icon: 'newspaper', to: '/articles'},
                 {label: 'Subjects', icon: 'newspaper', to: '/subjects'},
+                {label: 'Topics', icon: 'newspaper', to: '/topics'},
                 {
                     label: 'Extras', icon: 'list',
                     items: [

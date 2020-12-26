@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import FlashMessage from '@smartweb/vue-flash-message';
 import VueProgressBar from 'vue-progressbar'
 import VueConfirmDialog from 'vue-confirm-dialog'
+import vSelect from 'vue-select'
 import {
     ValidationObserver,
     ValidationProvider,
@@ -25,6 +26,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'primevue/resources/primevue.min.css'
 import '../sass/layout/layout.scss'
+import 'vue-select/dist/vue-select.css';
 
 library.add(fas)
 
@@ -50,6 +52,7 @@ Vue.use(FlashMessage, { time: 10000 });
 Vue.use(BootstrapVue)
 Vue.component('InputText', InputText)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('v-select', vSelect)
 
 Vue.config.productionTip = false
 Vue.prototype.$appName = process.env.MIX_APP_NAME;

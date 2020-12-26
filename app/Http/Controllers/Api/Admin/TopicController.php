@@ -41,11 +41,15 @@ class TopicController extends ApiBaseController
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255', 'unique:topics'],
-            'subject_id' => 'required|exists:subjects,id'
-        ]);
+            'subject_id' => 'required|exists:subjects,id',
+            'status' => [
+                'required',
+                Rule::in(array_keys(config('params.topic.status')))
+            ]
+        ], ['subject_id.required' => 'The subject field is required']);
 
         if ($validator->fails()) {
-            return $this->error($validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            return $this->error($validator->errors()->first(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         try
@@ -53,7 +57,7 @@ class TopicController extends ApiBaseController
             $topic = new Topic();
             $topic->name = $request->name;
             $topic->subject_id = $request->subject_id;
-            $topic->status = Topic::STATUS_ACTIVE;
+            $topic->status = $request->status;
 
             $topic->save();
         }
@@ -91,18 +95,22 @@ class TopicController extends ApiBaseController
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255', Rule::unique('topics')->ignore($topic->id)],
-            'subject_id' => 'required|exists:subjects,id'
+            'subject_id' => 'required|exists:subjects,id',
+            'status' => [
+                'required',
+                Rule::in(array_keys(config('params.topic.status')))
+            ],
         ]);
 
         if ($validator->fails()) {
-            return $this->error($validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            return $this->error($validator->errors()->first(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         try
         {
             $topic->name = $request->name;
             $topic->subject_id = $request->subject_id;
-            $topic->status = Topic::STATUS_ACTIVE;
+            $topic->status = $request->status;
 
             $topic->save();
         }
